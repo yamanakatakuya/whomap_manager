@@ -24,7 +24,7 @@ disa <- st_read(here::here("./shape/Detailed_Boundary_Disputed_Areas.geojson"))
 
 # 2. Data manuputation for practical use and layers for disputed boundaries ---- 
 # reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world <- ms_simplify(shp0, keep = 0.002, keep_shapes = TRUE, sys = TRUE) |>
+world <- ms_simplify(shp0, keep = 0.0013, keep_shapes = TRUE, sys = TRUE) |>
   mutate(iso3 = ISO_3_CODE)
 
 # Aksai Chin hack
@@ -36,20 +36,26 @@ disa_nlake_nac <- disa |>
   filter(!grepl("lake", NAME, ignore.case = TRUE) & !grepl("sea", NAME, ignore.case = TRUE) & !grepl("Aksai", NAME, ignore.case = TRUE))
 
 # Lakes
-disa_lake <- ms_simplify(disa, keep = 0.03, keep_shapes = TRUE, sys = TRUE) |>
+disa_lake <- ms_simplify(disa, keep = 0.01, keep_shapes = TRUE, sys = TRUE) |>
   filter(grepl("lake", NAME, ignore.case = TRUE) | grepl("sea", NAME, ignore.case = TRUE))
 
-# Sudan/South Sudan line
-disb_su <- disb |>
-  filter(grepl("Sudan", NAME, ignore.case = TRUE))
+# Sudan/South Sudan line and Korean boarder
+disb_dashed <- disb |>
+  filter(grepl("Sudan", NAME, ignore.case = TRUE) | grepl("Korean", NAME, ignore.case = TRUE) | 
+           grepl("Gaza Strip", NAME, ignore.case = TRUE) | grepl("West Bank", NAME, ignore.case = TRUE) | 
+           (grepl("SDN claim", NAME, ignore.case = TRUE) & !grepl("Abyei", NAME, ignore.case = TRUE)) | 
+           grepl("Ilemi", NAME, ignore.case = TRUE) | grepl("Kosovo", NAME, ignore.case = TRUE) |
+           (grepl("J&K", NAME, ignore.case = TRUE) & !grepl("Line", NAME, ignore.case = TRUE)))
 
 # Arunachal Pradesh line
-disb_ar <- disb |>
-  filter(grepl("Arunachal", NAME, ignore.case = TRUE))
+disb_solid <- disb |>
+  filter(grepl("Arunachal", NAME, ignore.case = TRUE) | grepl("Sahara", NAME, ignore.case = TRUE)| 
+           grepl("EGY claim", NAME, ignore.case = TRUE) | grepl("Aksai", NAME, ignore.case = TRUE) |
+           grepl("Jammu and Kashmir", NAME, ignore.case = TRUE) )
 
 # Other disputed boundaries
-disb_nsu <- disb |>
-  filter(!grepl("Sudan", NAME, ignore.case = TRUE) & !grepl("Arunachal", NAME, ignore.case = TRUE))
+disb_dotted <- disb |>
+  filter(grepl("Abyei", NAME, ignore.case = TRUE) | grepl("J&K Line of Control", NAME, ignore.case = TRUE) )
 
 
 
@@ -60,6 +66,6 @@ save(world, file = here::here(paste0("./data/world", ".rda")))
 save(disa_ac, file = here::here(paste0("./data/disa_ac", ".rda")))
 save(disa_nlake_nac, file = here::here(paste0("./data/disa_nlake_nac", ".rda")))
 save(disa_lake, file = here::here(paste0("./data/disa_lake", ".rda")))
-save(disb_su, file = here::here(paste0("./data/disb_su", ".rda")))
-save(disb_ar, file = here::here(paste0("./data/disb_ar", ".rda")))
-save(disb_nsu, file = here::here(paste0("./data/disb_nsu", ".rda")))
+save(disb_dashed, file = here::here(paste0("./data/disb_dashed", ".rda")))
+save(disb_solid, file = here::here(paste0("./data/disb_solid", ".rda")))
+save(disb_dotted, file = here::here(paste0("./data/disb_dotted", ".rda")))
