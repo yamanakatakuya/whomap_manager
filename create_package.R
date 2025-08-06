@@ -11,12 +11,15 @@ load("data/world.rda")
 load("data/disa_ac.rda")
 load("data/disa_lake.rda")
 load("data/disa_nlake_nac.rda")
-load("data/disb_dashed.rda")
+load("data/disb_dashed_white.rda")
+load("data/disb_dashed_black.rda")
+load("data/disb_dashed_grey.rda")
 load("data/disb_solid.rda")
-load("data/disb_dotted.rda")
+load("data/disb_dotted_black.rda")
+load("data/disb_dotted_grey.rda")
 
 # merge everything into ./R/sysdata.rda
-usethis::use_data(world, disa_ac, disa_lake, disa_nlake_nac, disb_solid, disb_dotted, disb_dashed, overwrite = TRUE)
+usethis::use_data(world, disa_ac, disa_lake, disa_nlake_nac, disb_solid, disb_dotted_black, disb_dotted_white, disb_dashed_white, disb_dashed_black, disb_dashed_grey, overwrite = TRUE)
 
 # update ./man documentation
 devtools::document()

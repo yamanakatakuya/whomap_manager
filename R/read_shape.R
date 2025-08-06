@@ -40,23 +40,30 @@ disa_lake <- ms_simplify(disa, keep = 0.01, keep_shapes = TRUE, sys = TRUE) |>
   filter(grepl("lake", NAME, ignore.case = TRUE) | grepl("sea", NAME, ignore.case = TRUE))
 
 # Sudan/South Sudan line and Korean boarder
-disb_dashed <- disb |>
-  filter(grepl("Sudan", NAME, ignore.case = TRUE) | grepl("Korean", NAME, ignore.case = TRUE) | 
+disb_dashed_white <- disb |>
+  filter(grepl("Korean", NAME, ignore.case = TRUE) | 
            grepl("Gaza Strip", NAME, ignore.case = TRUE) | grepl("West Bank", NAME, ignore.case = TRUE) | 
            (grepl("SDN claim", NAME, ignore.case = TRUE) & !grepl("Abyei", NAME, ignore.case = TRUE)) | 
-           grepl("Ilemi", NAME, ignore.case = TRUE) | grepl("Kosovo", NAME, ignore.case = TRUE) |
-           (grepl("J&K", NAME, ignore.case = TRUE) & !grepl("Line", NAME, ignore.case = TRUE)))
+           grepl("Kosovo", NAME, ignore.case = TRUE))
 
-# Arunachal Pradesh line
+disb_dashed_black <- disb |>
+  filter(grepl("Sudan", NAME, ignore.case = TRUE) | grepl("Ilemi", NAME, ignore.case = TRUE))
+
+disb_dashed_grey <- disb |>
+  filter((grepl("J&K", NAME, ignore.case = TRUE) & !grepl("Line", NAME, ignore.case = TRUE)))
+
+# solid line
 disb_solid <- disb |>
   filter(grepl("Arunachal", NAME, ignore.case = TRUE) | grepl("Sahara", NAME, ignore.case = TRUE)| 
            grepl("EGY claim", NAME, ignore.case = TRUE) | grepl("Aksai", NAME, ignore.case = TRUE) |
            grepl("Jammu and Kashmir", NAME, ignore.case = TRUE) )
 
-# Other disputed boundaries
-disb_dotted <- disb |>
-  filter(grepl("Abyei", NAME, ignore.case = TRUE) | grepl("J&K Line of Control", NAME, ignore.case = TRUE) )
+# dotted boundaries
+disb_dotted_grey <- disb |>
+  filter(grepl("J&K Line of Control", NAME, ignore.case = TRUE) )
 
+disb_dotted_black <- disb |>
+  filter(grepl("Abyei", NAME, ignore.case = TRUE))
 
 
 # 3. save geo datasets ---- 
@@ -66,6 +73,9 @@ save(world, file = here::here(paste0("./data/world", ".rda")))
 save(disa_ac, file = here::here(paste0("./data/disa_ac", ".rda")))
 save(disa_nlake_nac, file = here::here(paste0("./data/disa_nlake_nac", ".rda")))
 save(disa_lake, file = here::here(paste0("./data/disa_lake", ".rda")))
-save(disb_dashed, file = here::here(paste0("./data/disb_dashed", ".rda")))
+save(disb_dashed_white, file = here::here(paste0("./data/disb_dashed_white", ".rda")))
+save(disb_dashed_black, file = here::here(paste0("./data/disb_dashed_black", ".rda")))
+save(disb_dashed_grey, file = here::here(paste0("./data/disb_dashed_grey", ".rda")))
 save(disb_solid, file = here::here(paste0("./data/disb_solid", ".rda")))
-save(disb_dotted, file = here::here(paste0("./data/disb_dotted", ".rda")))
+save(disb_dotted_grey, file = here::here(paste0("./data/disb_dotted_grey", ".rda")))
+save(disb_dotted_black, file = here::here(paste0("./data/disb_dotted_black", ".rda")))
