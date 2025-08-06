@@ -8,6 +8,7 @@
 library(sf)
 library(here)
 library(rmapshaper)
+library(dplyr)
 
 
 # 1. read raw GIS datasets ---- 
@@ -43,11 +44,11 @@ disa_lake <- ms_simplify(disa, keep = 0.01, keep_shapes = TRUE, sys = TRUE) |>
 disb_dashed_white <- disb |>
   filter(grepl("Korean", NAME, ignore.case = TRUE) | 
            grepl("Gaza Strip", NAME, ignore.case = TRUE) | grepl("West Bank", NAME, ignore.case = TRUE) | 
-           (grepl("SDN claim", NAME, ignore.case = TRUE) & !grepl("Abyei", NAME, ignore.case = TRUE)) | 
-           grepl("Kosovo", NAME, ignore.case = TRUE))
+           (grepl("SDN claim", NAME, ignore.case = TRUE) & !grepl("Abyei", NAME, ignore.case = TRUE)))
 
 disb_dashed_black <- disb |>
-  filter(grepl("Sudan", NAME, ignore.case = TRUE) | grepl("Ilemi", NAME, ignore.case = TRUE))
+  filter(grepl("Sudan", NAME, ignore.case = TRUE) | grepl("Ilemi", NAME, ignore.case = TRUE) | 
+           grepl("Kosovo", NAME, ignore.case = TRUE))
 
 disb_dashed_grey <- disb |>
   filter((grepl("J&K", NAME, ignore.case = TRUE) & !grepl("Line", NAME, ignore.case = TRUE)))

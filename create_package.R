@@ -19,7 +19,13 @@ load("data/disb_dotted_black.rda")
 load("data/disb_dotted_grey.rda")
 
 # merge everything into ./R/sysdata.rda
-usethis::use_data(world, disa_ac, disa_lake, disa_nlake_nac, disb_solid, disb_dotted_black, disb_dotted_white, disb_dashed_white, disb_dashed_black, disb_dashed_grey, overwrite = TRUE)
-
+usethis::use_data(
+  world, disa_ac, disa_lake, disa_nlake_nac,
+  disb_solid, disb_dotted_black, disb_dotted_grey,
+  disb_dashed_white, disb_dashed_black, disb_dashed_grey,
+  internal = TRUE, compress = "gzip", overwrite = TRUE
+)
 # update ./man documentation
 devtools::document()
+
+devtools::install(build = TRUE, force = TRUE)
