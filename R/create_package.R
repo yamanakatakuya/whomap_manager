@@ -18,7 +18,7 @@ load("data/disb_solid.rda")
 load("data/disb_dotted_black.rda")
 load("data/disb_dotted_grey.rda")
 
-# merge everything into ./R/sysdata.rda
+# merge everything into ./R/sysdata.rda (DO NOT SAVE MANUALLY)
 usethis::use_data(
   world, disa_ac, disa_lake, disa_nlake_nac,
   disb_solid, disb_dotted_black, disb_dotted_grey,
@@ -28,4 +28,5 @@ usethis::use_data(
 # update ./man documentation
 devtools::document()
 
+# install test version in your local before uploading to Github
 devtools::install(build = TRUE, force = TRUE)
