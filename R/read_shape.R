@@ -41,10 +41,14 @@ disa_lake <- ms_simplify(disa, keep = 0.01, keep_shapes = TRUE, sys = TRUE) |>
   filter(grepl("lake", NAME, ignore.case = TRUE) | grepl("sea", NAME, ignore.case = TRUE))
 
 # Sudan/South Sudan line and Korean boarder
-disb_dashed_white <- disb |>
-  filter(grepl("Korean", NAME, ignore.case = TRUE) | 
-           grepl("Gaza Strip", NAME, ignore.case = TRUE) | grepl("West Bank", NAME, ignore.case = TRUE) | 
-           (grepl("SDN claim", NAME, ignore.case = TRUE) & !grepl("Abyei", NAME, ignore.case = TRUE)))
+disb_dashed_kor <- disb |>
+  filter(grepl("Korean", NAME, ignore.case = TRUE) )
+
+disb_dashed_pse <- disb |>
+  filter(grepl("Gaza Strip", NAME, ignore.case = TRUE) | grepl("West Bank", NAME, ignore.case = TRUE))
+
+disb_dashed_sdn <- disb |>
+  filter((grepl("SDN claim", NAME, ignore.case = TRUE) & !grepl("Abyei", NAME, ignore.case = TRUE)))
 
 disb_dashed_black <- disb |>
   filter(grepl("Sudan", NAME, ignore.case = TRUE) | grepl("Ilemi", NAME, ignore.case = TRUE) | 
@@ -74,7 +78,9 @@ save(world, file = here::here(paste0("./data/world", ".rda")))
 save(disa_ac, file = here::here(paste0("./data/disa_ac", ".rda")))
 save(disa_nlake_nac, file = here::here(paste0("./data/disa_nlake_nac", ".rda")))
 save(disa_lake, file = here::here(paste0("./data/disa_lake", ".rda")))
-save(disb_dashed_white, file = here::here(paste0("./data/disb_dashed_white", ".rda")))
+save(disb_dashed_kor, file = here::here(paste0("./data/disb_dashed_kor", ".rda")))
+save(disb_dashed_pse, file = here::here(paste0("./data/disb_dashed_pse", ".rda")))
+save(disb_dashed_sdn, file = here::here(paste0("./data/disb_dashed_sdn", ".rda")))
 save(disb_dashed_black, file = here::here(paste0("./data/disb_dashed_black", ".rda")))
 save(disb_dashed_grey, file = here::here(paste0("./data/disb_dashed_grey", ".rda")))
 save(disb_solid, file = here::here(paste0("./data/disb_solid", ".rda")))
