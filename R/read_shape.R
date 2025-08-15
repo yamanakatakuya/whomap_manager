@@ -43,7 +43,7 @@ disa_nlake_nac <- disa |>
   filter(!grepl("lake", NAME, ignore.case = TRUE) & !grepl("sea", NAME, ignore.case = TRUE) & !grepl("Aksai", NAME, ignore.case = TRUE))
 
 # Lakes
-disa_lake <- ms_simplify(disa, keep = 0.01, keep_shapes = TRUE, sys = TRUE) |>
+disa_lake <- disa |>
   filter(grepl("lake", NAME, ignore.case = TRUE) | grepl("sea", NAME, ignore.case = TRUE))
 
 # Sudan/South Sudan line and Korean boarder
