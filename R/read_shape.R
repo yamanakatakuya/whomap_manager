@@ -17,6 +17,9 @@ library(dplyr)
 
 ## Global ADM0
 shp0 <- st_read(here::here("./shape/Detailed_Boundary_ADM0.geojson"))
+shp0 <- shp0 |>
+  filter(ENDDATE == "9999-12-31 02:00:00")
+
 ## Boundary Borders
 disb <- st_read(here::here("./shape/Detailed_Boundary_Disputed_Borders.geojson"))
 ## Boundary Areas
@@ -113,63 +116,6 @@ disa_lake100 <- disa |>
 save(world100, file = here::here(paste0("./data/world_100%", ".rda")))
 save(disa_lake100, file = here::here(paste0("./data/disa_lake_100%", ".rda")))
 
-
-#- - - - - - - - - - -
-# C. Increased details - 5% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world5 <- ms_simplify(shp0, keep = 0.05, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# Lakes
-disa_lake5 <- ms_simplify(disa, keep = 0.05, keep_shapes = TRUE, sys = TRUE) |>
-  filter(grepl("lake", NAME, ignore.case = TRUE) | grepl("sea", NAME, ignore.case = TRUE))
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world5, file = here::here(paste0("./data/world_5%", ".rda")))
-save(disa_lake5, file = here::here(paste0("./data/disa_lake_5%", ".rda")))
-
-
-#- - - - - - - - - - -
-# D. Increased details - 10% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world10 <- ms_simplify(shp0, keep = 0.1, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# Lakes
-disa_lake10 <- ms_simplify(disa, keep = 0.1, keep_shapes = TRUE, sys = TRUE) |>
-  filter(grepl("lake", NAME, ignore.case = TRUE) | grepl("sea", NAME, ignore.case = TRUE))
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world10, file = here::here(paste0("./data/world_10%", ".rda")))
-save(disa_lake10, file = here::here(paste0("./data/disa_lake_10%", ".rda")))
-
-
-#- - - - - - - - - - -
-# E. Increased details - 2.5% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world2.5 <- ms_simplify(shp0, keep = 0.025, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# Lakes
-disa_lake2.5 <- ms_simplify(disa, keep = 0.025, keep_shapes = TRUE, sys = TRUE) |>
-  filter(grepl("lake", NAME, ignore.case = TRUE) | grepl("sea", NAME, ignore.case = TRUE))
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world2.5, file = here::here(paste0("./data/world_2.5%", ".rda")))
-save(disa_lake2.5, file = here::here(paste0("./data/disa_lake_2.5%", ".rda")))
-
 #- - - - - - - - - - -
 # E. Increased details - 1.25% for base world and lake
 #- - - - - - - - - - -
@@ -183,88 +129,4 @@ world1.25 <- ms_simplify(shp0, keep = 0.0125, keep_shapes = TRUE, sys = TRUE) |>
 # saving as rda in ./data
 save(world1.25, file = here::here(paste0("./data/world_1.25%", ".rda")))
 
-
-#- - - - - - - - - - -
-# E. Increased details - 0.75% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world1.0 <- ms_simplify(shp0, keep = 0.01, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world1.0, file = here::here(paste0("./data/world_1.0%", ".rda")))
-
-
-#- - - - - - - - - - -
-# E. Increased details - 0.75% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world0.85 <- ms_simplify(shp0, keep = 0.0085, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world0.85, file = here::here(paste0("./data/world_0.85%", ".rda")))
-
-#- - - - - - - - - - -
-# E. Increased details - 0.75% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world0.8 <- ms_simplify(shp0, keep = 0.008, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world0.8, file = here::here(paste0("./data/world_0.8%", ".rda")))
-
-
-#- - - - - - - - - - -
-# E. Increased details - 0.75% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world0.75 <- ms_simplify(shp0, keep = 0.0075, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world0.75, file = here::here(paste0("./data/world_0.75%", ".rda")))
-
-
-#- - - - - - - - - - -
-# E. Increased details - 0.5% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world0.5 <- ms_simplify(shp0, keep = 0.005, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world0.5, file = here::here(paste0("./data/world_0.5%", ".rda")))
-
-
-
-
-#- - - - - - - - - - -
-# E. Increased details - 80% for base world and lake
-#- - - - - - - - - - -
-
-# 2. Data manuputation for practical use and layers for disputed boundaries ---- 
-# reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world90 <- ms_simplify(shp0, keep = 0.90, keep_shapes = TRUE, sys = TRUE) |>
-  mutate(iso3 = ISO_3_CODE)
-
-# 3. save geo datasets ---- 
-# saving as rda in ./data
-save(world90, file = here::here(paste0("./data/world_90%", ".rda")))
 
