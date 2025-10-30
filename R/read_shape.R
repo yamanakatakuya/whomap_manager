@@ -34,7 +34,7 @@ disa <- st_read(here::here("./shape/Detailed_Boundary_Disputed_Areas.geojson"))
 
 # 2. Data manuputation for practical use and layers for disputed boundaries ---- 
 # reducing the level of details using rmapshaper::ms_simplify() since the original geoJSON files are too heavy to be loaded.
-world <- ms_simplify(shp0, keep = 0.0013, keep_shapes = TRUE, sys = TRUE) |>
+world <- ms_simplify(shp0, keep = 0.0125, keep_shapes = TRUE, sys = TRUE) |>
   mutate(iso3 = ISO_3_CODE)
 
 # Aksai Chin hack
